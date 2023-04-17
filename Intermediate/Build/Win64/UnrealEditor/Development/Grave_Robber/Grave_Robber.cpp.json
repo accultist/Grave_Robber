@@ -1,0 +1,14 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\users\\chuck\\documents\\ssu\\spring 2023\\cs-370-software-design-dev\\grave robber (final project)\\grave_robber\\source\\grave_robber\\grave_robber.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\users\\chuck\\documents\\ssu\\spring 2023\\cs-370-software-design-dev\\grave robber (final project)\\grave_robber\\intermediate\\build\\win64\\grave_robbereditor\\development\\engine\\sharedpch.engine.shadowerrors.h.pch",
+        "Includes": [
+            "c:\\users\\chuck\\documents\\ssu\\spring 2023\\cs-370-software-design-dev\\grave robber (final project)\\grave_robber\\intermediate\\build\\win64\\unrealeditor\\development\\grave_robber\\definitions.grave_robber.h",
+            "c:\\users\\chuck\\documents\\ssu\\spring 2023\\cs-370-software-design-dev\\grave robber (final project)\\grave_robber\\source\\grave_robber\\grave_robber.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}
