@@ -40,6 +40,13 @@ protected:
 	void OnSetDestinationReleased();
 	void OnTouchPressed(const ETouchIndex::Type FingerIndex, const FVector Location);
 	void OnTouchReleased(const ETouchIndex::Type FingerIndex, const FVector Location);
+    
+    /* Axis binding for WASD keyboard control */
+    void MoveForward(float Value);
+    void MoveRight(float Value);
+    
+    /* Mouse look */
+    void UpdateMouse();
 
 private:
 	bool bInputPressed; // Input is bring pressed
