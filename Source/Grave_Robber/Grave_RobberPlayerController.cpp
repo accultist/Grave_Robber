@@ -17,7 +17,7 @@ AGrave_RobberPlayerController::AGrave_RobberPlayerController()
 void AGrave_RobberPlayerController::PlayerTick(float DeltaTime)
 {
 	Super::PlayerTick(DeltaTime);
-
+/*
 	if(bInputPressed)
 	{
 		FollowTime += DeltaTime;
@@ -47,6 +47,7 @@ void AGrave_RobberPlayerController::PlayerTick(float DeltaTime)
 	{
 		FollowTime = 0.f;
 	}
+*/
 }
 
 void AGrave_RobberPlayerController::SetupInputComponent()
@@ -54,15 +55,18 @@ void AGrave_RobberPlayerController::SetupInputComponent()
 	// set up gameplay key bindings
 	Super::SetupInputComponent();
 
-	InputComponent->BindAction("SetDestination", IE_Pressed, this, &AGrave_RobberPlayerController::OnSetDestinationPressed);
-	InputComponent->BindAction("SetDestination", IE_Released, this, &AGrave_RobberPlayerController::OnSetDestinationReleased);
+//	InputComponent->BindAction("SetDestination", IE_Pressed, this, &AGrave_RobberPlayerController::OnSetDestinationPressed);
+//	InputComponent->BindAction("SetDestination", IE_Released, this, &AGrave_RobberPlayerController::OnSetDestinationReleased);
 
 	// support touch devices 
-	InputComponent->BindTouch(EInputEvent::IE_Pressed, this, &AGrave_RobberPlayerController::OnTouchPressed);
-	InputComponent->BindTouch(EInputEvent::IE_Released, this, &AGrave_RobberPlayerController::OnTouchReleased);
+//	InputComponent->BindTouch(EInputEvent::IE_Pressed, this, &AGrave_RobberPlayerController::OnTouchPressed);
+//	InputComponent->BindTouch(EInputEvent::IE_Released, this, &AGrave_RobberPlayerController::OnTouchReleased);
 
+	// support WASD movement
+	InputComponent->BindAxis("MoveForward", this, &AGrave_RobberPlayerController::MoveForward);
+	InputComponent->BindAxis("MoveRight", this, &AGrave_RobberPlayerController::MoveRight);
 }
-
+/*
 void AGrave_RobberPlayerController::OnSetDestinationPressed()
 {
 	// We flag that the input is being pressed
@@ -101,4 +105,28 @@ void AGrave_RobberPlayerController::OnTouchReleased(const ETouchIndex::Type Fing
 {
 	bIsTouch = false;
 	OnSetDestinationReleased();
+}
+*/
+void AGrave_RobberPlayerController::MoveForward(float Value)
+{
+	if (Value != 0.0f)
+	{
+		APawn* const MyPawn = GetPawn();
+		if (MyPawn)
+		{
+			MyPawn->AddMovementInput(FVector(1.0f, 0.0f, 0.0f), Value);
+		}
+	}
+}
+
+void AGrave_RobberPlayerController::MoveRight(float Value)
+{
+	if (Value != 0.0f)
+	{
+		APawn* const MyPawn = GetPawn();
+		if (MyPawn)
+		{
+			MyPawn->AddMovementInput(FVector(0.0f, 1.0f, 0.0f), Value);
+		}
+	}
 }

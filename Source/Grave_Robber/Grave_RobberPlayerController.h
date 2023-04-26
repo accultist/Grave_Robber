@@ -36,10 +36,14 @@ protected:
 	// End PlayerController interface
 
 	/** Input handlers for SetDestination action. */
-	void OnSetDestinationPressed();
+/*	void OnSetDestinationPressed();
 	void OnSetDestinationReleased();
 	void OnTouchPressed(const ETouchIndex::Type FingerIndex, const FVector Location);
 	void OnTouchReleased(const ETouchIndex::Type FingerIndex, const FVector Location);
+*/
+	// wasd movement
+	void MoveForward(float Value);
+	void MoveRight(float Value);
 
 private:
 	bool bInputPressed; // Input is bring pressed
