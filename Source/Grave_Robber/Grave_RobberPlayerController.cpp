@@ -17,6 +17,8 @@ AGrave_RobberPlayerController::AGrave_RobberPlayerController()
 void AGrave_RobberPlayerController::PlayerTick(float DeltaTime)
 {
 	Super::PlayerTick(DeltaTime);
+
+	UpdateMouseLook();
 /*
 	if(bInputPressed)
 	{
@@ -127,6 +129,25 @@ void AGrave_RobberPlayerController::MoveRight(float Value)
 		if (MyPawn)
 		{
 			MyPawn->AddMovementInput(FVector(0.0f, 1.0f, 0.0f), Value);
+		}
+	}
+}
+
+void AGrave_RobberPlayerController::UpdateMouseLook()
+{
+	APawn* const MyPawn = GetPawn();
+	if (MyPawn)
+	{
+		FHitResult Hit;
+		GetHitResultUnderCursor(ECC_Visibility, true, Hit);
+		if (Hit.bBlockingHit)
+		{
+			FVector newDirection = Hit.ImpactPoint - MyPawn->GetActorLocation();
+			newDirection.Z = 0.0f;
+			newDirection.GetSafeNormal();
+
+			FRotator newRotation = newDirection.Rotation();
+			MyPawn->SetActorRotation(newRotation);
 		}
 	}
 }

@@ -44,6 +44,7 @@ protected:
 	// wasd movement
 	void MoveForward(float Value);
 	void MoveRight(float Value);
+	void UpdateMouseLook();
 
 private:
 	bool bInputPressed; // Input is bring pressed
