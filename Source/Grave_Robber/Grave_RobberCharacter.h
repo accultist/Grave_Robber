@@ -22,13 +22,38 @@ public:
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 
+	// override TakeDamage
+	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
+
+	// getter and setters to check if character is dead
+	UFUNCTION(BlueprintCallable, Category = "C++ Functions")
+		bool getIsDead();
+	void setIsDead(bool dead);
+
+	UFUNCTION(BlueprintCallable, Category = "C++ Functions")
+		float getCurrentHealth();
+
+	UFUNCTION(BlueprintCallable, Category = "C++ Functions")
+		float getMaxHealth();
+
+protected:
+	UPROPERTY(EditAnywhere)
+		float maxHealth;
+
+	float currentHealth;
+
+	UPROPERTY(EditAnywhere)
+		float attackDamage;
+
 private:
 	/** Top down camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class UCameraComponent* TopDownCameraComponent;
+		class UCameraComponent* TopDownCameraComponent;
 
 	/** Camera boom positioning the camera above the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class USpringArmComponent* CameraBoom;
+		class USpringArmComponent* CameraBoom;
+
+	bool isDead;
 };
 

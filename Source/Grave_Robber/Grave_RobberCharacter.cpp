@@ -10,6 +10,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Materials/Material.h"
 #include "Engine/World.h"
+#include "Kismet/GameplayStatics.h"
 
 AGrave_RobberCharacter::AGrave_RobberCharacter()
 {
@@ -43,9 +44,61 @@ AGrave_RobberCharacter::AGrave_RobberCharacter()
 	// Activate ticking in order to update the cursor every frame.
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bStartWithTickEnabled = true;
+
+	maxHealth = 100.0f;
+	currentHealth = maxHealth;
+	attackDamage = 10.0f;
+	isDead = false;
 }
 
 void AGrave_RobberCharacter::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
+}
+
+float AGrave_RobberCharacter::TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+	float actualDamage = Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser);
+
+	if (actualDamage > 0.0f)
+	{
+		currentHealth -= actualDamage;
+
+		if (currentHealth <= 0.0f)
+		{
+			// character is dead
+			SetCanBeDamaged(false); // don't allow further damage
+			setIsDead(true);
+
+			// disable inputs
+			APlayerController* playerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+			if (playerController)
+			{
+				playerController->SetIgnoreLookInput(true);
+				playerController->SetIgnoreMoveInput(true);
+			}
+		}
+	}
+	
+	return actualDamage;
+}
+
+bool AGrave_RobberCharacter::getIsDead()
+{
+	return isDead;
+}
+
+void AGrave_RobberCharacter::setIsDead(bool dead)
+{
+	isDead = dead;
+}
+
+float AGrave_RobberCharacter::getCurrentHealth()
+{
+	return currentHealth;
+}
+
+float AGrave_RobberCharacter::getMaxHealth()
+{
+	return maxHealth;
 }

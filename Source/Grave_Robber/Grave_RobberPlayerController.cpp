@@ -109,45 +109,51 @@ void AGrave_RobberPlayerController::OnTouchReleased(const ETouchIndex::Type Fing
 	OnSetDestinationReleased();
 }
 */
-void AGrave_RobberPlayerController::MoveForward(float Value)
+void AGrave_RobberPlayerController::MoveForward(float value)
 {
-	if (Value != 0.0f)
+	if (value != 0.0f)
 	{
-		APawn* const MyPawn = GetPawn();
-		if (MyPawn)
+		APawn* const myPawn = GetPawn();
+		if (myPawn)
 		{
-			MyPawn->AddMovementInput(FVector(1.0f, 0.0f, 0.0f), Value);
+			myPawn->AddMovementInput(FVector(1.0f, 0.0f, 0.0f), value);
 		}
 	}
 }
 
-void AGrave_RobberPlayerController::MoveRight(float Value)
+void AGrave_RobberPlayerController::MoveRight(float value)
 {
-	if (Value != 0.0f)
+	if (value != 0.0f)
 	{
-		APawn* const MyPawn = GetPawn();
-		if (MyPawn)
+		APawn* const myPawn = GetPawn();
+		if (myPawn)
 		{
-			MyPawn->AddMovementInput(FVector(0.0f, 1.0f, 0.0f), Value);
+			myPawn->AddMovementInput(FVector(0.0f, 1.0f, 0.0f), value);
 		}
 	}
 }
 
 void AGrave_RobberPlayerController::UpdateMouseLook()
 {
-	APawn* const MyPawn = GetPawn();
-	if (MyPawn)
+	// leave function if look input is ignored
+	if (IsLookInputIgnored())
 	{
-		FHitResult Hit;
-		GetHitResultUnderCursor(ECC_Visibility, true, Hit);
-		if (Hit.bBlockingHit)
+		return;
+	}
+
+	APawn* const myPawn = GetPawn();
+	if (myPawn)
+	{
+		FHitResult hit;
+		GetHitResultUnderCursor(ECC_Visibility, true, hit);
+		if (hit.bBlockingHit)
 		{
-			FVector newDirection = Hit.ImpactPoint - MyPawn->GetActorLocation();
+			FVector newDirection = hit.ImpactPoint - myPawn->GetActorLocation();
 			newDirection.Z = 0.0f;
 			newDirection.GetSafeNormal();
 
 			FRotator newRotation = newDirection.Rotation();
-			MyPawn->SetActorRotation(newRotation);
+			myPawn->SetActorRotation(newRotation);
 		}
 	}
 }

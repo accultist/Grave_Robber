@@ -42,8 +42,8 @@ protected:
 	void OnTouchReleased(const ETouchIndex::Type FingerIndex, const FVector Location);
 */
 	// wasd movement
-	void MoveForward(float Value);
-	void MoveRight(float Value);
+	void MoveForward(float value);
+	void MoveRight(float value);
 	void UpdateMouseLook();
 
 private:

@@ -5,5 +5,5 @@
 
 IMPLEMENT_PRIMARY_GAME_MODULE( FDefaultGameModuleImpl, Grave_Robber, "Grave_Robber" );
 
-DEFINE_LOG_CATEGORY(LogGrave_Robber)
+//DEFINE_LOG_CATEGORY(LogGrave_Robber)
  
