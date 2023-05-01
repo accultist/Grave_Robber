@@ -10,6 +10,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Materials/Material.h"
 #include "Engine/World.h"
+#include "Kismet/GameplayStatics.h"
 
 AGrave_RobberCharacter::AGrave_RobberCharacter()
 {
@@ -67,6 +68,14 @@ float AGrave_RobberCharacter::TakeDamage(float Damage, struct FDamageEvent const
 			// character is dead
 			SetCanBeDamaged(false); // don't allow further damage
 			setIsDead(true);
+
+			// disable inputs
+			APlayerController* playerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+			if (playerController)
+			{
+				playerController->SetIgnoreLookInput(true);
+				playerController->SetIgnoreMoveInput(true);
+			}
 		}
 	}
 	
@@ -81,4 +90,9 @@ bool AGrave_RobberCharacter::getIsDead()
 void AGrave_RobberCharacter::setIsDead(bool dead)
 {
 	isDead = dead;
+}
+
+float AGrave_RobberCharacter::getHealth()
+{
+	return health;
 }

@@ -30,6 +30,9 @@ public:
 		bool getIsDead();
 	void setIsDead(bool dead);
 
+	UFUNCTION(BlueprintCallable, Category = "C++ Functions")
+	float getHealth();
+
 protected:
 	UPROPERTY(EditAnywhere)
 		float health;

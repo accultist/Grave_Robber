@@ -18,6 +18,8 @@ void AGrave_RobberPlayerController::PlayerTick(float DeltaTime)
 {
 	Super::PlayerTick(DeltaTime);
 
+	UpdateMouseLook();
+/*
 	if(bInputPressed)
 	{
 		FollowTime += DeltaTime;
@@ -47,6 +49,7 @@ void AGrave_RobberPlayerController::PlayerTick(float DeltaTime)
 	{
 		FollowTime = 0.f;
 	}
+*/
 }
 
 void AGrave_RobberPlayerController::SetupInputComponent()
@@ -54,15 +57,18 @@ void AGrave_RobberPlayerController::SetupInputComponent()
 	// set up gameplay key bindings
 	Super::SetupInputComponent();
 
-	InputComponent->BindAction("SetDestination", IE_Pressed, this, &AGrave_RobberPlayerController::OnSetDestinationPressed);
-	InputComponent->BindAction("SetDestination", IE_Released, this, &AGrave_RobberPlayerController::OnSetDestinationReleased);
+//	InputComponent->BindAction("SetDestination", IE_Pressed, this, &AGrave_RobberPlayerController::OnSetDestinationPressed);
+//	InputComponent->BindAction("SetDestination", IE_Released, this, &AGrave_RobberPlayerController::OnSetDestinationReleased);
 
 	// support touch devices 
-	InputComponent->BindTouch(EInputEvent::IE_Pressed, this, &AGrave_RobberPlayerController::OnTouchPressed);
-	InputComponent->BindTouch(EInputEvent::IE_Released, this, &AGrave_RobberPlayerController::OnTouchReleased);
+//	InputComponent->BindTouch(EInputEvent::IE_Pressed, this, &AGrave_RobberPlayerController::OnTouchPressed);
+//	InputComponent->BindTouch(EInputEvent::IE_Released, this, &AGrave_RobberPlayerController::OnTouchReleased);
 
+	// support WASD movement
+	InputComponent->BindAxis("MoveForward", this, &AGrave_RobberPlayerController::MoveForward);
+	InputComponent->BindAxis("MoveRight", this, &AGrave_RobberPlayerController::MoveRight);
 }
-
+/*
 void AGrave_RobberPlayerController::OnSetDestinationPressed()
 {
 	// We flag that the input is being pressed
@@ -101,4 +107,53 @@ void AGrave_RobberPlayerController::OnTouchReleased(const ETouchIndex::Type Fing
 {
 	bIsTouch = false;
 	OnSetDestinationReleased();
+}
+*/
+void AGrave_RobberPlayerController::MoveForward(float value)
+{
+	if (value != 0.0f)
+	{
+		APawn* const myPawn = GetPawn();
+		if (myPawn)
+		{
+			myPawn->AddMovementInput(FVector(1.0f, 0.0f, 0.0f), value);
+		}
+	}
+}
+
+void AGrave_RobberPlayerController::MoveRight(float value)
+{
+	if (value != 0.0f)
+	{
+		APawn* const myPawn = GetPawn();
+		if (myPawn)
+		{
+			myPawn->AddMovementInput(FVector(0.0f, 1.0f, 0.0f), value);
+		}
+	}
+}
+
+void AGrave_RobberPlayerController::UpdateMouseLook()
+{
+	// leave function if look input is ignored
+	if (IsLookInputIgnored())
+	{
+		return;
+	}
+
+	APawn* const myPawn = GetPawn();
+	if (myPawn)
+	{
+		FHitResult hit;
+		GetHitResultUnderCursor(ECC_Visibility, true, hit);
+		if (hit.bBlockingHit)
+		{
+			FVector newDirection = hit.ImpactPoint - myPawn->GetActorLocation();
+			newDirection.Z = 0.0f;
+			newDirection.GetSafeNormal();
+
+			FRotator newRotation = newDirection.Rotation();
+			myPawn->SetActorRotation(newRotation);
+		}
+	}
 }
