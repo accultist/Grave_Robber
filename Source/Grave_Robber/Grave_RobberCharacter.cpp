@@ -43,9 +43,42 @@ AGrave_RobberCharacter::AGrave_RobberCharacter()
 	// Activate ticking in order to update the cursor every frame.
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bStartWithTickEnabled = true;
+
+	health = 100.0f;
+	attackDamage = 10.0f;
+	isDead = false;
 }
 
 void AGrave_RobberCharacter::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
+}
+
+float AGrave_RobberCharacter::TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+	float actualDamage = Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser);
+
+	if (actualDamage > 0.0f)
+	{
+		health -= actualDamage;
+
+		if (health <= 0.0f)
+		{
+			// character is dead
+			SetCanBeDamaged(false); // don't allow further damage
+			setIsDead(true);
+		}
+	}
+	
+	return actualDamage;
+}
+
+bool AGrave_RobberCharacter::getIsDead()
+{
+	return isDead;
+}
+
+void AGrave_RobberCharacter::setIsDead(bool dead)
+{
+	isDead = dead;
 }
