@@ -51,9 +51,5 @@ void ACorpseSwordCharacter::attackPlayer()
 	if (playerCharacter)
 	{
 		playerCharacter->TakeDamage(attackDamage, FDamageEvent(), GetInstigatorController(), this);
-		if (GEngine)
-		{
-			GEngine->AddOnScreenDebugMessage(1, 4.f, FColor::Green, FString::Printf(TEXT("player health: %f"), playerCharacter->getHealth()));
-		}
 	}
 }

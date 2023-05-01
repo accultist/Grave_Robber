@@ -45,7 +45,8 @@ AGrave_RobberCharacter::AGrave_RobberCharacter()
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bStartWithTickEnabled = true;
 
-	health = 100.0f;
+	maxHealth = 100.0f;
+	currentHealth = maxHealth;
 	attackDamage = 10.0f;
 	isDead = false;
 }
@@ -61,9 +62,9 @@ float AGrave_RobberCharacter::TakeDamage(float Damage, struct FDamageEvent const
 
 	if (actualDamage > 0.0f)
 	{
-		health -= actualDamage;
+		currentHealth -= actualDamage;
 
-		if (health <= 0.0f)
+		if (currentHealth <= 0.0f)
 		{
 			// character is dead
 			SetCanBeDamaged(false); // don't allow further damage
@@ -92,7 +93,12 @@ void AGrave_RobberCharacter::setIsDead(bool dead)
 	isDead = dead;
 }
 
-float AGrave_RobberCharacter::getHealth()
+float AGrave_RobberCharacter::getCurrentHealth()
 {
-	return health;
+	return currentHealth;
+}
+
+float AGrave_RobberCharacter::getMaxHealth()
+{
+	return maxHealth;
 }

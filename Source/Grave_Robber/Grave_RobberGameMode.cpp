@@ -4,6 +4,8 @@
 #include "Grave_RobberPlayerController.h"
 #include "Grave_RobberCharacter.h"
 #include "UObject/ConstructorHelpers.h"
+#include "Kismet/GameplayStatics.h"
+#include "Blueprint/UserWidget.h"
 
 AGrave_RobberGameMode::AGrave_RobberGameMode()
 {
@@ -23,4 +25,30 @@ AGrave_RobberGameMode::AGrave_RobberGameMode()
 	{
 		PlayerControllerClass = PlayerControllerBPClass.Class;
 	}
+}
+
+void AGrave_RobberGameMode::BeginPlay()
+{
+	Super::BeginPlay();
+
+	// get player health
+	AGrave_RobberCharacter* playerCharacter = Cast<AGrave_RobberCharacter>(UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
+	if (playerCharacter)
+	{
+		playerMaxHealth = playerCharacter->getMaxHealth();
+	}
+
+	if (HUDWidgetClass)
+	{
+		CurrentWidget = CreateWidget<UUserWidget>(GetWorld(), HUDWidgetClass);
+		if (CurrentWidget)
+		{
+			CurrentWidget->AddToViewport();
+		}
+	}
+}
+
+float AGrave_RobberGameMode::getPlayerMaxHealth() const
+{
+	return playerMaxHealth;
 }

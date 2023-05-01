@@ -2,6 +2,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "Engine.h"
 
-DECLARE_LOG_CATEGORY_EXTERN(LogGrave_Robber, Log, All);
+//DECLARE_LOG_CATEGORY_EXTERN(LogGrave_Robber, Log, All);
