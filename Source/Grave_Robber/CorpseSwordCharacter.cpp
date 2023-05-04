@@ -7,26 +7,8 @@
 
 ACorpseSwordCharacter::ACorpseSwordCharacter()
 {
-	health = 10.0f;
 	attackDamage = 10.0f;
 	isDead = false;
-}
-
-float ACorpseSwordCharacter::TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
-{
-	float actualDamage = Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser);
-
-	if (actualDamage > 0.0f)
-	{
-		health -= actualDamage; // reduce health points
-		if (health <= 0.0f)
-		{
-			SetCanBeDamaged(false); // dont allow further damage
-			setIsDead(true);
-		}
-	}
-
-	return actualDamage;
 }
 
 // return if character is dead or not

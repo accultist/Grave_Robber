@@ -18,9 +18,6 @@ public:
 	// constructor
 	ACorpseSwordCharacter();
 
-	// override TakeDamage
-	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
-
 	// getter and setters to check if character is dead
 	UFUNCTION(BlueprintCallable, Category = "C++ Functions")
 		bool getIsDead();
@@ -31,10 +28,7 @@ public:
 		void attackPlayer();
 
 protected:
-	UPROPERTY(EditAnywhere)
-		float health;
-
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		float attackDamage;
 
 private:
