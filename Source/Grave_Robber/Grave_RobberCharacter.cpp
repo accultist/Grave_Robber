@@ -98,7 +98,17 @@ float AGrave_RobberCharacter::getCurrentHealth()
 	return currentHealth;
 }
 
+void AGrave_RobberCharacter::addToCurrentHealth(float value)
+{
+	currentHealth += value;
+}
+
 float AGrave_RobberCharacter::getMaxHealth()
 {
 	return maxHealth;
+}
+
+void AGrave_RobberCharacter::addToMaxHealth(float value)
+{
+	maxHealth += value;
 }
