@@ -34,7 +34,13 @@ public:
 		float getCurrentHealth();
 
 	UFUNCTION(BlueprintCallable, Category = "C++ Functions")
+		void addToCurrentHealth(float value);
+
+	UFUNCTION(BlueprintCallable, Category = "C++ Functions")
 		float getMaxHealth();
+
+	UFUNCTION(BlueprintCallable, Category = "C++ Functions")
+		void addToMaxHealth(float value);
 
 protected:
 	UPROPERTY(EditAnywhere)
