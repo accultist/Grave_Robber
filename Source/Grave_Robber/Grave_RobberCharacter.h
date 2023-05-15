@@ -41,6 +41,12 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "C++ Functions")
 		void addToMaxHealth(float value);
+    
+    UFUNCTION(BlueprintCallable, Category = "C++ Functions")
+        float getDamage();
+
+    UFUNCTION(BlueprintCallable, Category = "C++ Functions")
+        void boostDamage(float value);
 
 protected:
 	UPROPERTY(EditAnywhere)
@@ -50,6 +56,8 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 		float attackDamage;
+    
+    float baseAttackDamage;
 
 private:
 	/** Top down camera */

@@ -46,8 +46,9 @@ AGrave_RobberCharacter::AGrave_RobberCharacter()
 	PrimaryActorTick.bStartWithTickEnabled = true;
 
 	maxHealth = 100.0f;
+    baseAttackDamage = 10.0f;
 	currentHealth = maxHealth;
-	attackDamage = 10.0f;
+	attackDamage = baseAttackDamage;
 	isDead = false;
 }
 
@@ -111,4 +112,12 @@ float AGrave_RobberCharacter::getMaxHealth()
 void AGrave_RobberCharacter::addToMaxHealth(float value)
 {
 	maxHealth += value;
+}
+
+float AGrave_RobberCharacter::getDamage() {
+    return attackDamage;
+}
+
+void AGrave_RobberCharacter::boostDamage(float value) {
+    attackDamage += value;
 }
