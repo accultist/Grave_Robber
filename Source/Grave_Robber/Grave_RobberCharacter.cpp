@@ -102,11 +102,6 @@ float AGrave_RobberCharacter::getCurrentHealth()
 void AGrave_RobberCharacter::addToCurrentHealth(float value)
 {
 	currentHealth += value;
-
-	if (currentHealth > maxHealth)
-	{
-		currentHealth = maxHealth;
-	}
 }
 
 float AGrave_RobberCharacter::getMaxHealth()
